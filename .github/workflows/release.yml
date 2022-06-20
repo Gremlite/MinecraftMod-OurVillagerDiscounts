@@ -33,7 +33,7 @@ jobs:
           file_path: "build/libs/our-villager-discounts-${{ steps.build.outputs.version }}-fabric.jar"
           game_endpoint: "minecraft"
           game_versions: "Minecraft ${{ steps.build.outputs.minecraftVersion }},Java 17,Fabric"
-          relations: "fabric-api:requiredDependency"
+          relations: "fabric-api:requiredDependency,fabric-language-kotlin:requiredDependency"
           project_id: "635348"
           release_type: "release"
           token: "${{ secrets.CF_API_TOKEN }}"

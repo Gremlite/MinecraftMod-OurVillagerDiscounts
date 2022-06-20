@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "package": "ourvillagerdiscounts.ourvillagerdiscounts.mixin",
+  "compatibilityLevel": "JAVA_16",
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "mixins": [
+    "VillagerInteractMixin",
+    "VillagerGossipEntriesInvoker"
+  ]
+}

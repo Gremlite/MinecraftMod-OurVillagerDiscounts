@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "id": "our_villager_discounts",
+  "version": "${version}",
+  "name": "Our Villager Discounts",
+  "description": "Shares positive gossip data between players. This could not be done as a datapack due to a bug concerning how gossip NBT data works.",
+  "authors": [
+    "Gremlite"
+  ],
+  "contact": {
+    "homepage": "https://github.com/Gremlite/MinecraftMod-OurVillagerDiscounts",
+    "issues": "https://github.com/Gremlite/MinecraftMod-OurVillagerDiscounts/issues",
+    "sources": "https://github.com/Gremlite/MinecraftMod-OurVillagerDiscounts"
+  },
+  "license": "The Unlicense",
+  "icon": "assets/our_villager_discounts/icon.png",
+  "environment": "*",
+  "accessWidener": "ourvillagerdiscounts.accesswidener",
+  "entrypoints": {
+    "main": [
+      {
+        "adapter": "kotlin",
+        "value": "ourvillagerdiscounts.ourvillagerdiscounts.OurVillagerDiscounts"
+      }
+    ]
+  },
+  "mixins": [
+    "our_villager_discounts.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.13.3",
+    "fabric": "*",
+    "fabric-language-kotlin": ">=1.7.4+kotlin.1.6.21",
+    "minecraft": ">=1.16.2"
+  }
+}

@@ -1,10 +1,5 @@
 name: Build
-on:
-  push:
-    tags-ignore:
-      - "v*"
-  pull_request:
-
+on: [push, pull_request]
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -18,4 +13,9 @@ jobs:
       - name: Setup gradle
         uses: gradle/gradle-build-action@v2
       - name: Execute Gradle build
+        id: build
         run: chmod +x ./gradlew && ./gradlew build
+      - name: Print build outputs
+        run: |
+          echo "Minecraft version: ${{ steps.build.outputs.minecraftVersion }}"
+          echo "Mod version: ${{ steps.build.outputs.version }}"

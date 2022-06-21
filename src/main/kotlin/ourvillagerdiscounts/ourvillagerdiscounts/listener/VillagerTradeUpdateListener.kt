@@ -4,8 +4,8 @@ import java.util.Comparator
 import java.util.stream.Stream
 import net.minecraft.entity.passive.VillagerEntity
 import net.minecraft.entity.player.PlayerEntity
-import net.minecraft.nbt.CompoundTag
-import net.minecraft.nbt.ListTag
+import net.minecraft.nbt.NbtCompound
+import net.minecraft.nbt.NbtList
 import net.minecraft.util.ActionResult
 import net.minecraft.village.VillageGossipType
 import net.minecraft.village.VillagerData
@@ -32,13 +32,13 @@ class VillagerTradeUpdateListener : VillagerInteractCallback {
                         player.uuid
                     ) { g -> g == VillageGossipType.MAJOR_POSITIVE }
                     if (majorPositiveGossip > currentMajorPositiveGossip) {
-                        val list = ListTag()
-                        val tag = CompoundTag()
+                        val list = NbtList()
+                        val tag = NbtCompound()
                         tag.putString(TYPE, VillageGossipType.MAJOR_POSITIVE.key)
                         tag.putInt(VALUE, majorPositiveGossip)
                         tag.putUuid(TARGET, player.uuid)
                         list.add(tag)
-                        villager.setGossipDataFromTag(list)
+                        villager.readGossipDataNbt(list)
                     }
                 }
         }

@@ -169,5 +169,5 @@ exec {
 }
 
 exec {
-    commandLine "echo", "::set-output name=::minecraftVersion${minecraftVersion}"
+    commandLine "echo", "::set-output name=minecraftVersion::${minecraftVersion}"
 }

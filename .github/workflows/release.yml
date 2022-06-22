@@ -1,0 +1,38 @@
+name: Release
+on:
+  push:
+    tags:
+      - "v*"
+jobs:
+  release:
+    environment: Mod
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up JDK 8
+        uses: actions/setup-java@v3
+        with:
+          java-version: "8"
+          distribution: "adopt"
+      - name: Setup gradle
+        uses: gradle/gradle-build-action@v2
+      - name: Build with Gradle
+        id: build
+        run: |
+          chmod +x ./gradlew && ./gradlew build
+          for f in build/libs/*.jar; do mv "$f" "${f%.jar}-forge.jar"; done
+      - name: GitHub release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: "build/libs/our-villager-discounts-${{ steps.build.outputs.version }}-forge.jar"
+          name: "Forge ${{ steps.build.outputs.version }}"
+          fail_on_unmatched_files: true
+      - name: Upload to CurseForge
+        uses: itsmeow/curseforge-upload@v3
+        with:
+          file_path: "build/libs/our-villager-discounts-${{ steps.build.outputs.version }}-forge.jar"
+          game_endpoint: "minecraft"
+          game_versions: "Minecraft ${{ steps.build.outputs.minecraftVersion }},Java 17,Forge"
+          project_id: "635348"
+          release_type: "release"
+          token: "${{ secrets.CF_API_TOKEN }}"

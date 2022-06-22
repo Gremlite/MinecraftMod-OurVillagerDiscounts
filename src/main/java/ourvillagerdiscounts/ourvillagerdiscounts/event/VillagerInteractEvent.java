@@ -1,26 +1,26 @@
 package ourvillagerdiscounts.ourvillagerdiscounts.event;
 
-import net.minecraft.entity.merchant.villager.VillagerEntity;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.entity.npc.Villager;
+import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.eventbus.api.Event;
 
 /**
  * An event that fires whenever a player interacts with a villager.
  */
 public class VillagerInteractEvent extends Event {
-    private final PlayerEntity player;
-    private final VillagerEntity villager;
+    private final Player player;
+    private final Villager villager;
 
-    public VillagerInteractEvent(PlayerEntity player, VillagerEntity villager) {
+    public VillagerInteractEvent(Player player, Villager villager) {
         this.player = player;
         this.villager = villager;
     }
 
-    public PlayerEntity getPlayer() {
+    public Player getPlayer() {
         return player;
     }
 
-    public VillagerEntity getVillager() {
+    public Villager getVillager() {
         return villager;
     }
 }

@@ -4,7 +4,7 @@
 
 <img src="assets/icon.png" width="250" height="250" />
 
-The earliest support version of Minecraft is 1.16.2.
+The earliest supported version of Minecraft is 1.16.2.
 
 ### Why?
 
@@ -15,10 +15,8 @@ through commands, I've opted to make this mod in the meanwhile.
 
 ### Launcher support
 
-This project only supports the
+This project supports the
 [Fabric](https://github.com/Gremlite/MinecraftMod-OurVillagerDiscounts/tree/fabric)
-launcher. Support for each launcher will be managed on its own branch.
-
-There will be support in future for the
+and
 [Forge](https://github.com/Gremlite/MinecraftMod-OurVillagerDiscounts/tree/forge)
-launcher.
+launchers. Support for each launcher is managed on its own branch.

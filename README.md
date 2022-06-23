@@ -20,3 +20,10 @@ This project supports the
 and
 [Forge](https://github.com/Gremlite/MinecraftMod-OurVillagerDiscounts/tree/forge)
 launchers. Support for each launcher is managed on its own branch.
+
+#### Fabric
+
+Fabric has a dependency on the
+[Fabric API](https://www.curseforge.com/minecraft/mc-mods/fabric-api) and
+[Fabric Language Kotlin](https://www.curseforge.com/minecraft/mc-mods/fabric-language-kotlin)
+mods to run successfully.

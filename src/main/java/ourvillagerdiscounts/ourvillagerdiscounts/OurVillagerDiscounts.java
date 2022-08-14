@@ -23,7 +23,7 @@ public class OurVillagerDiscounts {
     public void onPlayerEntityInteract(PlayerInteractEvent.EntityInteract e) {
         Entity target = e.getTarget();
         if (target instanceof Villager) {
-            MinecraftForge.EVENT_BUS.post(new VillagerInteractEvent(e.getPlayer(), (Villager)target));
+            MinecraftForge.EVENT_BUS.post(new VillagerInteractEvent(e.getEntity(), (Villager)target));
         }
     }
 }

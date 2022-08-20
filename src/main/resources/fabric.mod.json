@@ -28,9 +28,9 @@
     "our_villager_discounts.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">=0.14.8",
+    "fabricloader": ">=0.14.9",
     "fabric": "*",
     "fabric-language-kotlin": ">=1.7.4+kotlin.1.6.21",
-    "minecraft": ">=1.19.1"
+    "minecraft": ">=1.19.2"
   }
 }

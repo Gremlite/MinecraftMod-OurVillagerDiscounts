@@ -27,15 +27,15 @@ class VillagerTradeUpdateListener : VillagerInteractCallback {
                 .filter { a -> a.type == VillageGossipType.MAJOR_POSITIVE }
                 .max(Comparator.comparingInt { a -> a.value })
                 .ifPresent { maxEntry: GossipEntry ->
-                    val majorPositiveGossip = maxEntry.value
-                    val currentMajorPositiveGossip = gossip.getReputationFor(
+                    val majorPositiveGossipWeighted= maxEntry.getValue()
+                    val currentMajorPositiveGossipWeighted = gossip.getReputationFor(
                         player.uuid
                     ) { g -> g == VillageGossipType.MAJOR_POSITIVE }
-                    if (majorPositiveGossip > currentMajorPositiveGossip) {
+                    if (majorPositiveGossipWeighted > currentMajorPositiveGossipWeighted) {
                         val list = ListTag()
                         val tag = CompoundTag()
                         tag.putString(TYPE, VillageGossipType.MAJOR_POSITIVE.key)
-                        tag.putInt(VALUE, majorPositiveGossip)
+                        tag.putInt(VALUE, maxEntry.value) // Use the value without weighting
                         tag.putUuid(TARGET, player.uuid)
                         list.add(tag)
                         villager.setGossipDataFromTag(list)

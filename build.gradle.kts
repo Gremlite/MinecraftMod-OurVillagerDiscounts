@@ -33,9 +33,9 @@ tasks {
         options.release.set(javaVersion.toString().toInt())
     }
     withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-        kotlinOptions { jvmTarget = javaVersion.toString() }
-        sourceCompatibility = javaVersion.toString()
-        targetCompatibility = javaVersion.toString()
+        kotlinOptions {
+            jvmTarget = javaVersion.toString()
+        }
     }
     jar { from("LICENSE") { rename { "${it}_${base.archivesName}" } } }
     processResources {

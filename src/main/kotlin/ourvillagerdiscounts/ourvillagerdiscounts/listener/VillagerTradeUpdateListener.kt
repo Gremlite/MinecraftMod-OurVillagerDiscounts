@@ -32,10 +32,11 @@ class VillagerTradeUpdateListener : VillagerInteractCallback {
                         player.uuid
                     ) { g -> g == VillageGossipType.MAJOR_POSITIVE }
                     if (majorPositiveGossipWeighted > currentMajorPositiveGossipWeighted) {
+                        val majorPositiveGossipUnweighted = majorPositiveGossipWeighted / maxEntry.type.multiplier
                         val list = NbtList()
                         val tag = NbtCompound()
                         tag.putString(TYPE, VillageGossipType.MAJOR_POSITIVE.key)
-                        tag.putInt(VALUE, maxEntry.value) // Use the value without weighting
+                        tag.putInt(VALUE, majorPositiveGossipUnweighted) // Use the value without weighting
                         tag.putUuid(TARGET, player.uuid)
                         list.add(tag)
                         villager.readGossipDataNbt(list)

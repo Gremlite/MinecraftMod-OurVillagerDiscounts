@@ -27,12 +27,23 @@ jobs:
           files: "build/libs/our-villager-discounts-${{ steps.build.outputs.version }}-forge.jar"
           name: "Forge ${{ steps.build.outputs.version }}"
           fail_on_unmatched_files: true
+      - name: Upload to Modrinth
+        uses: Kir-Antipov/mc-publish@v3.3
+        with:
+          modrinth-id: TODO
+          modrinth-token: "${{ secrets.MODRINTH_TOKEN }}"
+          name: "Our Villager Discounts ${{ steps.build.outputs.version }}-forge"
+          files: "build/libs/our-villager-discounts-${{ steps.build.outputs.version }}-forge.jar"
+          game-versions: "${{ steps.build.outputs.minecraftVersion }}"
+          version: "${{ steps.build.outputs.version }}-forge"
+          java: "Java 17"
+          version-type: "release"
       - name: Upload to CurseForge
         uses: itsmeow/curseforge-upload@v3
         with:
           file_path: "build/libs/our-villager-discounts-${{ steps.build.outputs.version }}-forge.jar"
           game_endpoint: "minecraft"
-          game_versions: "Minecraft ${{ steps.build.outputs.minecraftVersion }},Java 17,Forge"
+          game_versions: "Minecraft ${{ steps.build.outputs.minecraftVersion }}:${{ steps.build.outputs.minecraftVersion }},Java 17,Forge"
           project_id: "635348"
           release_type: "release"
           token: "${{ secrets.CF_API_TOKEN }}"

@@ -27,6 +27,17 @@ jobs:
           files: "build/libs/our-villager-discounts-${{ steps.build.outputs.version }}-fabric.jar"
           name: "Fabric ${{ steps.build.outputs.version }}"
           fail_on_unmatched_files: true
+      - name: Upload to Modrinth
+        uses: Kir-Antipov/mc-publish@v3.3
+        with:
+          modrinth-id: Lw4dU9Z6
+          modrinth-token: "${{ secrets.MODRINTH_TOKEN }}"
+          name: "Our Villager Discounts ${{ steps.build.outputs.version }}-fabric"
+          files: "build/libs/our-villager-discounts-${{ steps.build.outputs.version }}-fabric.jar"
+          game-versions: "${{ steps.build.outputs.minecraftVersion }}"
+          version: "${{ steps.build.outputs.version }}-fabric"
+          java: "Java 17"
+          version-type: "release"
       - name: Upload to CurseForge
         uses: itsmeow/curseforge-upload@v3
         with:

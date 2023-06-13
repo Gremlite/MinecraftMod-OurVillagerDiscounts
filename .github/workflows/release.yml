@@ -30,7 +30,7 @@ jobs:
       - name: Upload to Modrinth
         uses: Kir-Antipov/mc-publish@v3.3
         with:
-          modrinth-id: TODO
+          modrinth-id: Lw4dU9Z6
           modrinth-token: "${{ secrets.MODRINTH_TOKEN }}"
           name: "Our Villager Discounts ${{ steps.build.outputs.version }}-forge"
           files: "build/libs/our-villager-discounts-${{ steps.build.outputs.version }}-forge.jar"

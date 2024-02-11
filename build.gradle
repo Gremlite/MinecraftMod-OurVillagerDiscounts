@@ -10,12 +10,12 @@ buildscript {
 }
 
 plugins {
-    id 'net.minecraftforge.gradle' version '6.0.14'
+    id 'net.minecraftforge.gradle' version '[6.0.16,6.2)'
 }
 
 apply plugin: 'org.spongepowered.mixin'
 
-def minecraftVersion = '1.20.2'
+def minecraftVersion = '1.20.3'
 group = 'ourvillagerdiscounts'
 version = "${minecraftVersion}+build.0"
 
@@ -41,6 +41,16 @@ minecraft {
     mappings channel: 'official', version: "${minecraftVersion}"
 
     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
+
+    // When true, this property will have all Eclipse/IntelliJ IDEA run configurations run the "prepareX" task for the given run configuration before launching the game.
+    // In most cases, it is not necessary to enable.
+    // enableEclipsePrepareRuns = true
+    // enableIdeaPrepareRuns = true
+
+    // This property allows configuring Gradle's ProcessResources task(s) to run on IDE output locations before launching the game.
+    // It is REQUIRED to be set to true for this template to function.
+    // See https://docs.gradle.org/current/dsl/org.gradle.language.jvm.tasks.ProcessResources.html
+    copyIdeResources = true
 
     // Default run configurations.
     // These can be tweaked, removed, or duplicated as needed.
@@ -126,7 +136,7 @@ dependencies {
     // Specify the version of Minecraft to use. If this is any group other than 'net.minecraft' it is assumed
     // that the dep is a ForgeGradle 'patcher' dependency, and its patches will be applied.
     // The userdev artifact is a special name and will get all sorts of transformations applied to it.
-    minecraft "net.minecraftforge:forge:${minecraftVersion}-48.1.0"
+    minecraft "net.minecraftforge:forge:${minecraftVersion}-49.0.2"
 
     // Real mod deobf dependency examples - these get remapped to your current mappings
     // compileOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}:api") // Adds JEI API as a compile dependency
@@ -162,6 +172,16 @@ jar.finalizedBy('reobfJar')
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
+}
+
+// Merge the resources and classes into the same directory. 
+// This is done because java expects modules to be in a single directory.
+// And if we have it in multiple we have to do performance intensive hacks like having the UnionFileSystem
+// This will eventually be migrated to ForgeGradle so modders don't need to manually do it. But that is later.
+sourceSets.each {
+    def dir = layout.buildDirectory.dir("sourcesSets/$it.name")
+    it.output.resourcesDir = dir
+    it.java.destinationDirectory = dir
 }
 
 exec {

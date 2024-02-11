@@ -17,6 +17,9 @@ Update the versions of the following in the `build.gradle` file:
 
 And update the `versionRange` in the `mods.toml` file.
 
+You may also have to update the `loaderVersion` and `versionRange` for the
+loader when it has a major version bump.
+
 ## Releasing
 
 To create a Forge release, simply tag the commit of interest as follows:

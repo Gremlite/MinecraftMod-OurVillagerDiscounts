@@ -32,18 +32,13 @@ jobs:
         with:
           modrinth-id: Lw4dU9Z6
           modrinth-token: "${{ secrets.MODRINTH_TOKEN }}"
+          curseforge-id: 635348
+          curseforge-token: "${{ secrets.CF_API_TOKEN }}"
           name: "Our Villager Discounts ${{ steps.build.outputs.version }}-forge"
           files: "build/libs/our-villager-discounts-${{ steps.build.outputs.version }}-forge.jar"
           game-versions: "${{ steps.build.outputs.minecraftVersion }}"
           version: "${{ steps.build.outputs.version }}-forge"
+          loaders: |
+            forge
           java: "Java 17"
           version-type: "release"
-      - name: Upload to CurseForge
-        uses: itsmeow/curseforge-upload@v3
-        with:
-          file_path: "build/libs/our-villager-discounts-${{ steps.build.outputs.version }}-forge.jar"
-          game_endpoint: "minecraft"
-          game_versions: "Minecraft ${{ steps.build.outputs.minecraftVersion }}:${{ steps.build.outputs.minecraftVersion }},Java 17,Forge"
-          project_id: "635348"
-          release_type: "release"
-          token: "${{ secrets.CF_API_TOKEN }}"

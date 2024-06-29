@@ -9,10 +9,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Set up JDK 17
+      - name: Set up JDK 21
         uses: actions/setup-java@v3
         with:
-          java-version: "17"
+          java-version: "21"
           distribution: "adopt"
       - name: Setup gradle
         uses: gradle/gradle-build-action@v2
@@ -43,5 +43,5 @@ jobs:
           dependencies: |
             fabric-api
             fabric-language-kotlin
-          java: "Java 17"
+          java: "Java 21"
           version-type: "release"

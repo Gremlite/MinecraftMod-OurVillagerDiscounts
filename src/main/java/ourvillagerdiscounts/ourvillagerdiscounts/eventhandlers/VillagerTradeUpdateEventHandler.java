@@ -47,8 +47,9 @@ public class VillagerTradeUpdateEventHandler {
 
                         if (majorPositiveGossipWeighted > currentMajorPositiveGossipWeighted) {
                             GossipContainer.GossipEntry entry = new GossipContainer.GossipEntry(player.getUUID(), GossipType.MAJOR_POSITIVE, maxEntry.value());
-                            final Tag tag = GossipContainer.GossipEntry.LIST_CODEC.encodeStart(NbtOps.INSTANCE, Collections.singletonList(entry)).getOrThrow(true, (e) -> {
+                            final Tag tag = GossipContainer.GossipEntry.LIST_CODEC.encodeStart(NbtOps.INSTANCE, Collections.singletonList(entry)).getOrThrow((e) -> {
                                 LOGGER.error("Failed to encode gossip data {}", e);
+                                return new RuntimeException(String.format("Failed to encode gossip data %s", e));
                             });
                             villager.setGossips(tag);
                         }

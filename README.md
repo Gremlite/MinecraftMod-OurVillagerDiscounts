@@ -10,15 +10,7 @@ for more information.
 
 ## Updating
 
-Update the versions of the following in the `build.gradle` file:
-
-* `minecraftVersion`
-* `net.minecraftforge:forge`
-
-And update the `versionRange` in the `mods.toml` file.
-
-You may also have to update the `loaderVersion` and `versionRange` for the
-loader when it has a major version bump.
+Update the environment variables in the `gradle.properties` file.
 
 ## Releasing
 

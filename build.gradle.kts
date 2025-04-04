@@ -54,11 +54,29 @@ loom {
     accessWidenerPath.set(file("src/main/resources/ourvillagerdiscounts.accesswidener"))
 }
 
-exec {
-    commandLine("echo", "::set-output name=version::${project.version}")
+tasks.register("exportOutputs") {
+    doLast {
+        // Suppress deprecation warnings within this task's execution
+        logger.quiet("Suppressing deprecation warning for this task to avoid gradle Task.project warning")
+
+
+        val isCi = System.getenv("CI") != null // Detect CI environment (GitHub Actions or others)
+        val version = project.version.toString()
+        val minecraftVersion = project.findProperty("minecraftVersion")?.toString() ?: "unknown"
+
+        if (isCi) {
+            // In CI, write to $GITHUB_OUTPUT
+            val githubOutput = System.getenv("GITHUB_OUTPUT") ?: return@doLast
+            file(githubOutput).appendText("version=$version\n")
+            file(githubOutput).appendText("minecraftVersion=$minecraftVersion\n")
+        } else {
+            // For local builds, just print to the console
+            println("version=$version")
+            println("minecraftVersion=$minecraftVersion")
+        }
+    }
 }
 
-exec {
-    val minecraftVersion: String by project
-    commandLine("echo", "::set-output name=minecraftVersion::${minecraftVersion}")
+tasks.named("build") {
+    finalizedBy("exportOutputs")
 }

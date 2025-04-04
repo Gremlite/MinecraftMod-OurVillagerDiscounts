@@ -5,7 +5,8 @@
   "name": "Our Villager Discounts",
   "description": "Shares positive gossip data between players. This could not be done as a datapack due to a bug concerning how gossip NBT data works.",
   "authors": [
-    "Gremlite"
+    "Gremlite",
+    "JKelly423"
   ],
   "contact": {
     "homepage": "https://github.com/Gremlite/MinecraftMod-OurVillagerDiscounts",
@@ -31,6 +32,6 @@
     "fabricloader": ">=0.16.10",
     "fabric": "*",
     "fabric-language-kotlin": ">=1.13.1+kotlin.2.1.10",
-    "minecraft": ">=1.21.4"
+    "minecraft": ">=1.21.5"
   }
 }

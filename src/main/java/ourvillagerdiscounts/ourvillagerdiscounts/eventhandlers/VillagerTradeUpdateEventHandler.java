@@ -2,6 +2,7 @@ package ourvillagerdiscounts.ourvillagerdiscounts.eventhandlers;
 
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.Dynamic;
+import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtOps;
@@ -34,26 +35,25 @@ public class VillagerTradeUpdateEventHandler {
         final Player player = event.getPlayer();
 
         final VillagerData data = villager.getVillagerData();
-        final VillagerProfession profession = data.getProfession();
+        final VillagerProfession profession = data.profession().get();
 
-        if (!profession.equals(VillagerProfession.NONE) && !profession.equals(VillagerProfession.NITWIT)) {
-            final GossipContainer gossip = villager.getGossips();
-            gossip.unpack()
-                    .filter(a -> a.type().equals(GossipType.MAJOR_POSITIVE))
-                    .max(Comparator.comparingInt(GossipContainer.GossipEntry::value))
-                    .ifPresent(maxEntry -> {
-                        final int majorPositiveGossipWeighted = maxEntry.weightedValue();
-                        final int currentMajorPositiveGossipWeighted = gossip.getReputation(player.getUUID(), g -> g.equals(GossipType.MAJOR_POSITIVE));
-
-                        if (majorPositiveGossipWeighted > currentMajorPositiveGossipWeighted) {
-                            GossipContainer.GossipEntry entry = new GossipContainer.GossipEntry(player.getUUID(), GossipType.MAJOR_POSITIVE, maxEntry.value());
-                            final Tag tag = GossipContainer.GossipEntry.LIST_CODEC.encodeStart(NbtOps.INSTANCE, Collections.singletonList(entry)).getOrThrow((e) -> {
-                                LOGGER.error("Failed to encode gossip data {}", e);
-                                return new RuntimeException(String.format("Failed to encode gossip data %s", e));
-                            });
-                            villager.setGossips(tag);
-                        }
-                    });
+        if (profession.equals(VillagerProfession.NONE) || profession.equals(VillagerProfession.NITWIT)) {
+            return;
         }
+
+        final GossipContainer gossip = villager.getGossips();
+        gossip.unpack()
+                .filter(a -> a.type().equals(GossipType.MAJOR_POSITIVE))
+                .max(Comparator.comparingInt(GossipContainer.GossipEntry::value))
+                .ifPresent(maxEntry -> {
+                    final int majorPositiveGossipWeighted = maxEntry.weightedValue();
+                    final int currentMajorPositiveGossipWeighted = gossip.getReputation(player.getUUID(), g -> g.equals(GossipType.MAJOR_POSITIVE));
+
+                    if (majorPositiveGossipWeighted > currentMajorPositiveGossipWeighted) {
+                        GossipContainer container = new GossipContainer();
+                        container.add(player.getUUID(), GossipType.MAJOR_POSITIVE, maxEntry.value());
+                        villager.setGossips(container);
+                    }
+                });
     }
 }

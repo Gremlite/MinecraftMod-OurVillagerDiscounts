@@ -4,11 +4,9 @@ import java.util.Comparator
 import java.util.stream.Stream
 import net.minecraft.entity.passive.VillagerEntity
 import net.minecraft.entity.player.PlayerEntity
-import net.minecraft.nbt.NbtCompound
-import net.minecraft.nbt.NbtList
 import net.minecraft.util.ActionResult
-import net.minecraft.village.VillageGossipType
 import net.minecraft.village.VillagerData
+import net.minecraft.village.VillagerGossipType
 import net.minecraft.village.VillagerGossips
 import net.minecraft.village.VillagerGossips.GossipEntry
 import net.minecraft.village.VillagerProfession
@@ -19,27 +17,23 @@ import ourvillagerdiscounts.ourvillagerdiscounts.mixin.VillagerGossipEntriesInvo
 class VillagerTradeUpdateListener : VillagerInteractCallback {
     override fun interact(player: PlayerEntity, villager: VillagerEntity): ActionResult {
         val data: VillagerData = villager.villagerData
-        val profession: VillagerProfession = data.profession
+        val profession = data.profession
         if (profession != VillagerProfession.NONE && profession != VillagerProfession.NITWIT) {
             val gossip: VillagerGossips = villager.gossip
             val gossipAccessor: Stream<GossipEntry> = (gossip as VillagerGossipEntriesInvoker).invokeEntries()
             gossipAccessor
-                .filter { a -> a.type == VillageGossipType.MAJOR_POSITIVE }
+                .filter { a -> a.type == VillagerGossipType.MAJOR_POSITIVE }
                 .max(Comparator.comparingInt { a -> a.value })
                 .ifPresent { maxEntry: GossipEntry ->
                     val majorPositiveGossipWeighted= maxEntry.getValue()
                     val currentMajorPositiveGossipWeighted = gossip.getReputationFor(
                         player.uuid
-                    ) { g -> g == VillageGossipType.MAJOR_POSITIVE }
+                    ) { g -> g == VillagerGossipType.MAJOR_POSITIVE }
                     if (majorPositiveGossipWeighted > currentMajorPositiveGossipWeighted) {
                         val majorPositiveGossipUnweighted = majorPositiveGossipWeighted / maxEntry.type.multiplier
-                        val list = NbtList()
-                        val tag = NbtCompound()
-                        tag.putString(TYPE, VillageGossipType.MAJOR_POSITIVE.key)
-                        tag.putInt(VALUE, majorPositiveGossipUnweighted) // Use the value without weighting
-                        tag.putUuid(TARGET, player.uuid)
-                        list.add(tag)
-                        villager.readGossipDataNbt(list)
+                        villager.readGossipData(VillagerGossips().apply {
+                            this.startGossip(player.uuid, VillagerGossipType.MAJOR_POSITIVE, majorPositiveGossipUnweighted)
+                        })
                     }
                 }
         }
@@ -50,9 +44,5 @@ class VillagerTradeUpdateListener : VillagerInteractCallback {
         private val LOG = LogManager.getLogger(
             VillagerTradeUpdateListener::class.java
         )
-
-        private const val TARGET = "Target"
-        private const val TYPE = "Type"
-        private const val VALUE = "Value"
     }
 }

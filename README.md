@@ -27,3 +27,8 @@ Fabric has a dependency on the
 [Fabric API](https://www.curseforge.com/minecraft/mc-mods/fabric-api) and
 [Fabric Language Kotlin](https://www.curseforge.com/minecraft/mc-mods/fabric-language-kotlin)
 mods to run successfully.
+
+### Contributing
+
+Please see [CONTRIBUTING.md](/CONTRIBUTING.md) for the current state for
+contributions.

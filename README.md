@@ -4,14 +4,16 @@
 
 <img src="assets/icon.png" width="250" height="250" />
 
+**NOTE** I have written a datapack which achieves largely the same effect for Minecraft 1.21.5+ over [here](https://github.com/Gremlite/MinecraftDataPack-OurVillagerDiscounts).
+
 The earliest supported version of Minecraft is 1.16.2.
 
-### Why?
+### Links
 
-This should simply be a datapack, but there is an [open
-issue](https://bugs.mojang.com/browse/MC-153392) as of 1.14.2 concerning the
-deletion and modification of villager NBT data. As this data can't be changed
-through commands, I've opted to make this mod in the meanwhile.
+If you find this elsewhere, other than the following links, I did not upload it. Be extra wary of mods reuploaded by external parties.
+
+- [CurseForge](https://curseforge.com/minecraft/mc-mods/our-villager-discounts/)
+- [Modrinth](https://modrinth.com/mod/our-villager-discounts)
 
 ### Launcher support
 

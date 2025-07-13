@@ -70,6 +70,9 @@ minecraft {
             // Please read: https://stackoverflow.com/questions/2031163/when-to-use-the-different-log-levels
             property 'forge.logging.console.level', 'debug'
 
+            // New event bus checks
+            // https://gist.github.com/PaintNinja/ad82c224aecee25efac1ea3e2cf19b91
+            property 'eventbus.api.strictRuntimeChecks', 'true'
 
             mods {
                 ourvillagerdiscounts {
@@ -150,6 +153,8 @@ dependencies {
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
 
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+
+    annotationProcessor 'net.minecraftforge:eventbus-validator:7.0-beta.7'
 }
 
 // Example for how to get properties into the manifest for reading at runtime.

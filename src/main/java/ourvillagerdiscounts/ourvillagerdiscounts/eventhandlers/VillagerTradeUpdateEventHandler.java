@@ -1,25 +1,17 @@
 package ourvillagerdiscounts.ourvillagerdiscounts.eventhandlers;
 
-import com.mojang.serialization.DataResult;
-import com.mojang.serialization.Dynamic;
-import net.minecraft.core.Holder;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.NbtOps;
-import net.minecraft.nbt.Tag;
 import net.minecraft.world.entity.ai.gossip.GossipContainer;
 import net.minecraft.world.entity.ai.gossip.GossipType;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.npc.VillagerData;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.eventbus.api.listener.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import ourvillagerdiscounts.ourvillagerdiscounts.event.VillagerInteractEvent;
 
-import java.util.Collections;
 import java.util.Comparator;
 
 /**
